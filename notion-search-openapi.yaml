@@ -1,0 +1,39 @@
+openapi: 3.0.0
+info:
+  title: Notion API (via Proxy)
+  version: 1.0.0
+servers:
+  - url: https://reverse-proxy.teenupedu.workers.dev/https://api.notion.com
+paths:
+  /v1/search:
+    post:
+      operationId: searchNotion
+      summary: Search Notion for pages or databases
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                query:
+                  type: string
+                page_size:
+                  type: integer
+              required:
+                - query
+      responses:
+        '200':
+          description: search results
+          content:
+            application/json:
+              schema:
+                type: object
+security:
+  - apiKeyAuth: []
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
